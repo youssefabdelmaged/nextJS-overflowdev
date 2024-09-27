@@ -20,7 +20,7 @@ const Leftsidebar = () => {
       className="sticky top-0 left-0  h-screen 
      flex flex-col justify-between 
      overflow-y-auto  
-     p-6 pt-36 
+     p-6 pt-36 custom-scrollbar
      dark:shadow-none shadow-light-300 
      background-light900_dark200 lg:w-[266px] max-sm:hidden "
     >
@@ -82,10 +82,7 @@ const Leftsidebar = () => {
                 height={20}
                 className="invert-colors lg:hidden"
               />
-                <span className=" max-lg:hidden">
-                Sign Up
-              </span>
-             
+              <span className=" max-lg:hidden">Sign Up</span>
             </Button>
           </Link>
         </div>
