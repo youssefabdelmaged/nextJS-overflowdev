@@ -5,27 +5,27 @@ import RenderTags from "../RenderTags";
 
 const hotQuestions = [
   {
-    _id: 1,
+    _id: "1",
     title:
       "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
   },
   {
-    _id: 2,
+    _id: "2",
     title:
       "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
   },
   {
-    _id: 3,
+    _id: "3",
     title:
       "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
   },
   {
-    _id: 4,
+    _id: "4",
     title:
       "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
   },
   {
-    _id: 5,
+    _id: "5",
     title:
       "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
   },
@@ -33,27 +33,27 @@ const hotQuestions = [
 
 const popularTags = [
   {
-    _id: 1,
+    _id: "1",
     name: "react",
     totalQuestions: 5,
   },
   {
-    _id: 2,
+    _id: "2",
     name: "next",
     totalQuestions: 5,
   },
   {
-    _id: 3,
+    _id: "3",
     name: "js",
     totalQuestions: 5,
   },
   {
-    _id: 4,
+    _id: "4",
     name: "redux",
     totalQuestions: 5,
   },
   {
-    _id: 5,
+    _id: "5",
     name: "vue",
     totalQuestions: 5,
   },

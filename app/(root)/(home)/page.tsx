@@ -1,9 +1,65 @@
+import QuestionCard from "@/components/cards/QuestionCard";
 import HomePageFilter from "@/components/Home/HomePageFilter";
 import Filters from "@/components/shared/Filters";
+import NoResult from "@/components/shared/NoResult";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
+
+const questions = [
+  {
+    _id: "1",
+    title: "Lorem ipsum dolor sit amet. 1",
+    tags: [
+      { _id: "1", name: "python" },
+      { _id: "2", name: "sql" },
+    ],
+    author: {
+      _id: "1",
+      name: "MEGA",
+      picture: "jhonedoepic",
+    },
+    upvotes: 10,
+    views: 1000000000,
+    answers: [],
+    createdAt: new Date("2021-09-01T12:00:00.000Z"),
+  },
+  {
+    _id: "2",
+    title: "Lorem ipsum dolor sit amet.2",
+    tags: [
+      { _id: "1", name: "python" },
+      { _id: "2", name: "sql" },
+    ],
+    author: {
+      _id: "1",
+      name: "THE MEGA",
+      picture: "jhonedoepic",
+    },
+    upvotes: 10,
+    views: 10000000,
+    answers: [],
+    createdAt: new Date("2024-10-02T12:00:00.000Z"),
+  },
+  {
+    _id: "3",
+    title: "Lorem ipsum dolor sit amet.3",
+    tags: [
+      { _id: "1", name: "python" },
+      { _id: "2", name: "sql" },
+    ],
+    author: {
+      _id: "1",
+      name: "john doe",
+      picture: "jhonedoepic",
+    },
+    upvotes: 10,
+    views: 1000,
+    answers: [],
+    createdAt: new Date("2021-09-01T12:00:00.000Z"),
+  },
+];
 
 const Home = () => {
   return (
@@ -32,6 +88,33 @@ const Home = () => {
         />
       </div>
       <HomePageFilter />
+
+      <div className=" mt-10 flex flex-col w-full gap-6">
+        {questions.length > 0 ? (
+          questions.map((item) => (
+            <QuestionCard
+              key={item._id}
+              _id={item._id}
+              title={item.title}
+              tags={item.tags}
+              author={item.author}
+              upvotes={item.upvotes}
+              views={item.views}
+              answers={item.answers}
+              createdAt={item.createdAt}
+            />
+          ))
+        ) : (
+          <NoResult
+            title="There is no question to show"
+            desc=" Be the first to break the silence! 🚀 Ask a Question and kickstart the
+                   discussion. our query could be the next big thing others learn from. Get
+                   involved! 💡"
+            link="/ask-question"
+            linkTitle="Ask a Question"
+          />
+        )}
+      </div>
     </>
   );
 };
