@@ -1,9 +1,15 @@
-import React from 'react'
+import Question from "@/components/forms/Question";
+import React from "react";
 
 const askQuestion = () => {
   return (
-    <div>askQuestion</div>
-  )
-}
+    <div>
+      <h1 className="h1-bold text-dark100_light900">Ask a question</h1>
+      <div className="mt-9">
+        <Question />
+      </div>
+    </div>
+  );
+};
 
-export default askQuestion
+export default askQuestion;
