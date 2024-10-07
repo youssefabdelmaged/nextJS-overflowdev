@@ -19,16 +19,23 @@ import { QuestionSchema } from "@/lib/validations";
 import { z } from "zod";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
+interface Props {
+  mongoUserId: string;
+}
 
 const type: any = "create";
 
-const Question = () => {
+const Question = ({ mongoUserId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const router = useRouter();
+  const pathname = usePathname();
   const editorRef = useRef(null);
+
   const log = () => {
     if (editorRef.current) {
-        // @ts-ignore
+      // @ts-ignore
       console.log(editorRef.current.getContent());
     }
   };
@@ -42,9 +49,17 @@ const Question = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof QuestionSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionSchema>) {
     setIsSubmitting(true);
     try {
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+      });
+
+      router.push("/");
     } catch (error) {}
   }
 
@@ -129,6 +144,8 @@ const Question = () => {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
