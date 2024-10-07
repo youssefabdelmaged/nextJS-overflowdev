@@ -5,63 +5,14 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
+import { getQuestions } from "@/lib/actions/question.action";
 import Link from "next/link";
 
-const questions = [
-  {
-    _id: "1",
-    title: "Lorem ipsum dolor sit amet. 1",
-    tags: [
-      { _id: "1", name: "python" },
-      { _id: "2", name: "sql" },
-    ],
-    author: {
-      _id: "1",
-      name: "MEGA",
-      picture: "jhonedoepic",
-    },
-    upvotes: 10,
-    views: 1000000000,
-    answers: [],
-    createdAt: new Date("2021-09-01T12:00:00.000Z"),
-  },
-  {
-    _id: "2",
-    title: "Lorem ipsum dolor sit amet.2",
-    tags: [
-      { _id: "1", name: "python" },
-      { _id: "2", name: "sql" },
-    ],
-    author: {
-      _id: "1",
-      name: "THE MEGA",
-      picture: "jhonedoepic",
-    },
-    upvotes: 10,
-    views: 10000000,
-    answers: [],
-    createdAt: new Date("2024-10-02T12:00:00.000Z"),
-  },
-  {
-    _id: "3",
-    title: "Lorem ipsum dolor sit amet.3",
-    tags: [
-      { _id: "1", name: "python" },
-      { _id: "2", name: "sql" },
-    ],
-    author: {
-      _id: "1",
-      name: "john doe",
-      picture: "jhonedoepic",
-    },
-    upvotes: 10,
-    views: 1000,
-    answers: [],
-    createdAt: new Date("2021-09-01T12:00:00.000Z"),
-  },
-];
+const Home = async () => {
+  const result = await getQuestions({});
+  const questions = result.questions;
+  console.log(result.questions);
 
-const Home = () => {
   return (
     <>
       <div className="flex flex-col-reverse justify-between w-full sm:flex-row sm:items-center gap-4">
