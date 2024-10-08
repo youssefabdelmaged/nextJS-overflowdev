@@ -1,6 +1,6 @@
 "use client";
 
-import { log } from "console";
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface ThemeContextType {
