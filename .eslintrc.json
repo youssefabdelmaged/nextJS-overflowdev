@@ -1,12 +1,12 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript",
-    "plugin:tailwindcss/recommended"
-  ],
   "eslintConfig": {
     "rules": {
       "no-require-imports": "off"
     }
-  }
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:tailwindcss/recommended"
+  ]
 }
