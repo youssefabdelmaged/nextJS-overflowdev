@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { WebhookEvent } from "@clerk/nextjs/server";
+import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
 
@@ -65,6 +65,14 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       picture: image_url,
     });
+
+    if (mongoUser) {
+      await clerkClient.users.updateUserMetadata(id, {
+        publicMetadata: {
+          userId: mongoUser._id,
+        },
+      });
+    }
 
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
