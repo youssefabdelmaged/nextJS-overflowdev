@@ -14,7 +14,7 @@ interface filterProps {
     value: string;
   }[];
   otherClasses: string;
-  containerClasses: string;
+  containerClasses?: string;
 }
 
 const Filters = ({ containerClasses, otherClasses, filters }: filterProps) => {
