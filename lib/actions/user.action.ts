@@ -1,6 +1,6 @@
 "use server";
 import User from "@/database/user.model";
-import { connectToDatabase } from "./mongoose";
+import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
@@ -80,8 +80,6 @@ export async function deleteUser(params: DeleteUserParams) {
   }
 }
 
-
-
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
     connectToDatabase();
@@ -98,12 +96,10 @@ export async function getAllUsers(params: GetAllUsersParams) {
   }
 }
 
-
 // export async function getAllUsers(params: GetAllUsersParams) {
 //   try {
 //     connectToDatabase();
 
-   
 //   } catch (error) {
 //     console.log(error);
 
