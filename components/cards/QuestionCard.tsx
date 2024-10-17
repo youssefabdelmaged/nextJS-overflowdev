@@ -19,6 +19,7 @@ interface Props {
   views: number;
   answers: Array<object>;
   createdAt: Date;
+  clerkId?: string |null;
 }
 const QuestionCard = ({
   _id,
@@ -29,6 +30,7 @@ const QuestionCard = ({
   views,
   answers,
   createdAt,
+  clerkId,
 }: Props) => {
   return (
     <div className="card-wrapper p-9 sm:px-11 rounded-[10px]">

@@ -31,7 +31,7 @@ export interface ParamsProps {
 }
 
 export interface SearchParamsProps {
-  searchParams: { [key: string]: string | undefined };
+  searchProps: { [key: string]: string | undefined };
 }
 
 export interface URLProps {
