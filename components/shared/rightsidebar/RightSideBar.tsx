@@ -2,34 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import RenderTags from "../RenderTags";
-
-const hotQuestions = [
-  {
-    _id: "1",
-    title:
-      "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
-  },
-  {
-    _id: "2",
-    title:
-      "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
-  },
-  {
-    _id: "3",
-    title:
-      "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
-  },
-  {
-    _id: "4",
-    title:
-      "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
-  },
-  {
-    _id: "5",
-    title:
-      "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, aperiam.  ",
-  },
-];
+import { getHotQuestions } from "@/lib/actions/question.action";
+import { getTopPopularTags } from "@/lib/actions/tag.action";
 
 const popularTags = [
   {
@@ -58,7 +32,9 @@ const popularTags = [
     totalQuestions: 5,
   },
 ];
-const RightSideBar = () => {
+const RightSideBar = async () => {
+  const hotQuestions = await getHotQuestions();
+  const popularTags = await getTopPopularTags();
   return (
     <section
       className="sticky top-0 right-0  h-screen 
@@ -74,7 +50,7 @@ const RightSideBar = () => {
           {hotQuestions.map((q) => (
             <Link
               key={q._id}
-              href={`/questions/${q._id}`}
+              href={`/question/${q._id}`}
               className="flex cursor-pointer items-center justify-between gap-7"
             >
               <p className="bode-medium text-dark500_light700">{q.title}</p>
@@ -97,7 +73,7 @@ const RightSideBar = () => {
               key={tag._id}
               _id={tag._id}
               name={tag.name}
-              totalQuestions={tag.totalQuestions}
+              totalQuestions={tag.numberOfQuestions}
               showCount
             />
           ))}
