@@ -35,8 +35,14 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
 export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase();
+    const { searchQuery } = params;
+    const query: FilterQuery<typeof Tag> = {};
 
-    const tags = await Tag.find({});
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
+    }
+
+    const tags = await Tag.find(query);
 
     return { tags };
   } catch (error) {
@@ -92,7 +98,7 @@ export async function getTopPopularTags() {
       { $limit: 5 },
     ]);
 
-    return popularTags
+    return popularTags;
   } catch (error) {
     console.log(error);
 

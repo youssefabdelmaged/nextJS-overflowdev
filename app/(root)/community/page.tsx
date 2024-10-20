@@ -6,8 +6,13 @@ import { getAllUsers } from "@/lib/actions/user.action";
 import Link from "next/link";
 import React from "react";
 
-const Community = async () => {
-  const result = await getAllUsers({});
+interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined };
+}
+const Community = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getAllUsers({
+    searchQuery: searchParams.q,
+  });
 
   return (
     <>
@@ -29,11 +34,7 @@ const Community = async () => {
 
       <section className="mt-12 flex flex-wrap gap-4">
         {result.users.length > 0 ? (
-          result.users.map((user) => (
-           
-              <UserCard key={user._id} user={user} />
-            
-          ))
+          result.users.map((user) => <UserCard key={user._id} user={user} />)
         ) : (
           <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
             <p>No Users Yet</p>

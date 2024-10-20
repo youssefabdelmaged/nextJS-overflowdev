@@ -5,9 +5,14 @@ import { UserFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
 import Link from "next/link";
 import React from "react";
+interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined };
+}
+const Tags = async ({searchParams}:SearchParamsProps) => {
+  const result = await getAllTags({
+    searchQuery: searchParams.q,
 
-const Tags = async () => {
-  const result = await getAllTags({});
+  });
 
   return (
     <>
