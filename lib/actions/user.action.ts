@@ -92,7 +92,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
   try {
     connectToDatabase();
 
-    const { searchQuery } = params;
+    const { searchQuery, filter } = params;
     const query: FilterQuery<typeof User> = {};
 
     if (searchQuery) {
@@ -102,7 +102,24 @@ export async function getAllUsers(params: GetAllUsersParams) {
       ];
     }
 
-    const users = await User.find(query).sort({ createdAt: -1 });
+    let sortOption = {};
+
+    switch (filter) {
+      case "new_users":
+        sortOption = { joinedAt: -1 };
+        break;
+      case "old_users":
+        sortOption = { joinedAt: -1 };
+        break;
+      case "top_contributors":
+        sortOption = { reputation: -1 };
+        break;
+
+      default:
+        break;
+    }
+
+    const users = await User.find(query).sort(sortOption);
 
     return { users };
   } catch (error) {
@@ -157,18 +174,42 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
   try {
     connectToDatabase();
 
-    const { clerkId,  searchQuery } = params;
+    const { clerkId, searchQuery ,filter} = params;
 
-    
     const query: FilterQuery<typeof Question> = searchQuery
       ? { title: { $regex: new RegExp(searchQuery, "i") } }
       : {};
+
+
+      let sortOption = {};
+
+      switch (filter) {
+        case "most_recent":
+          sortOption = { createdAt: -1 };
+          break;
+        case "oldest":
+          sortOption = { createdAt: -1 };
+          break;
+        case "most_voted":
+          sortOption = { upvotes: -1 };
+          break;
+        case "most_viewed":
+          sortOption = { views: -1 };
+          break;
+        case "most_answered":
+          sortOption = { answers: -1 };
+          break;
+  
+        default:
+          break;
+      }
+
 
     const user = await User.findOne({ clerkId }).populate({
       path: "saved",
       match: query,
       options: {
-        sort: { createdAt: -1 },
+        sort: sortOption,
       },
       populate: [
         { path: "tags", model: Tag, select: "_id name" },
