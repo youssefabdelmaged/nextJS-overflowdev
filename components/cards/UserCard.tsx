@@ -1,8 +1,10 @@
+"use client"
 import { getTopInteractedTags } from "@/lib/actions/tag.action";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import RenderTags from "../shared/RenderTags";
+import { useEffect, useState } from "react";
 
 interface Props {
   user: {
@@ -14,8 +16,24 @@ interface Props {
   };
 }
 
-const UserCard = async ({ user }: Props) => {
-  const interactedTags = await getTopInteractedTags({ userId: user._id });
+const UserCard =  ({ user }: Props) => {
+  // const interactedTags = await getTopInteractedTags({ userId: user._id });
+
+
+  const [interactedTags, setInteractedTags] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchInteractedTags = async () => {
+      try {
+        const tags = await getTopInteractedTags({ userId: user._id });
+        setInteractedTags(tags);
+      } catch (error) {
+        console.error("Failed to fetch tags", error);
+      } 
+    };
+
+    fetchInteractedTags();
+  }, [user._id]);
 
   return (
     <Link
