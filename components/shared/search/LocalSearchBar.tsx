@@ -25,7 +25,6 @@ const LocalSearchBar = ({
   const searchParams = useSearchParams();
 
   const query = searchParams.get("q");
-  console.log(query);
 
   const [search, setSearch] = useState(query || "");
 
