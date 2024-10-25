@@ -43,7 +43,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
 
   const parsedQuestionDetails =
     questionDetails && JSON.parse(questionDetails || "");
-   const groupedTags = parsedQuestionDetails.tags.map((tag: any) => tag.name);
+  const groupedTags = parsedQuestionDetails?.tags.map((tag: any) => tag.name);
 
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
@@ -62,7 +62,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
           questionId: parsedQuestionDetails._id,
           title: values.title,
           content: values.explanation,
-          path: pathname, 
+          path: pathname,
         });
         router.push(`/question/${parsedQuestionDetails._id}`);
       } else {
@@ -75,7 +75,10 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
         });
         router.push("/");
       }
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const handleInputKeyDown = (
