@@ -16,6 +16,7 @@ import { revalidatePath } from "next/cache";
 import Answer from "@/database/answer.model";
 import Interaction from "@/database/interaction.model";
 import { FilterQuery } from "mongoose";
+import { error } from "console";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
@@ -96,8 +97,19 @@ export async function createQuestion(params: CreateQuestionParams) {
       $push: { tags: { $each: tagDocument } },
     });
 
+    await Interaction.create({
+      user: author,
+      action: "ask_question",
+      question: question._id,
+      tags: tagDocument,
+    });
+
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
+
     revalidatePath(path);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getQuestionsById(params: GetQuestionByIdParams) {

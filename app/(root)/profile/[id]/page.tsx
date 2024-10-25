@@ -84,14 +84,14 @@ const Profile = async ({ searchParams, params }: URLProps) => {
           </TabsList>
           <TabsContent value="top-posts">
             <QuestionTab
-              searchProps={searchParams}
+              searchParams={searchParams}
               userId={userInfo.user._id}
               clerkId={clerkId}
             />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
             <AnswerTab
-              searchProps={searchParams}
+              searchParams={searchParams}
               userId={userInfo.user._id}
               clerkId={clerkId}
             />
