@@ -16,7 +16,6 @@ import { revalidatePath } from "next/cache";
 import Answer from "@/database/answer.model";
 import Interaction from "@/database/interaction.model";
 import { FilterQuery } from "mongoose";
-import { error } from "console";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
@@ -164,13 +163,23 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
     if (!question) {
       throw new Error("Question not found");
     }
+
     // increment author's reputation
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasupVoted ? -1 : 1 },
+    });
+
+    await User.findByIdAndUpdate(question.author, {
+      $inc: { reputation: hasupVoted ? -10 : 10 },
+    });
+
     revalidatePath(path);
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+
 export async function downvoteQuestion(params: QuestionVoteParams) {
   try {
     connectToDatabase();
@@ -197,6 +206,15 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
     if (!question) {
       throw new Error("Question not found");
     }
+
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasdownVoted ? -1 : 1 },
+    });
+
+    await User.findByIdAndUpdate(question.author, {
+      $inc: { reputation: hasdownVoted ? -10 : 10 },
+    });
+
 
     revalidatePath(path);
   } catch (error) {
@@ -227,6 +245,7 @@ export async function editQuestion(params: EditQuestionParams) {
     throw error;
   }
 }
+
 export async function deleteQuestion(params: DeleteQuestionParams) {
   try {
     connectToDatabase();
