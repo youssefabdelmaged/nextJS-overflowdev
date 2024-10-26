@@ -17,6 +17,7 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
     page: searchParams.page ? +searchParams.page : 1,
   });
 
+  const isLoading = true;
 
 
   return (
@@ -49,7 +50,6 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
           </div>
         )}
       </section>
-
 
       <div className="mt-10">
         <Pagination

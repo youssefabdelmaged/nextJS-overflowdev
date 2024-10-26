@@ -37,6 +37,30 @@ const Answer = ({ question, questionId, authorId }: Props) => {
     },
   });
 
+  const generateAIAnswer = async () => {
+    if (!authorId) return;
+
+    setSetIsSubmittingAI(true);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUPLIC_SERVER_URL}/api/chatgpt`,
+        {
+          method: "POST",
+          body: JSON.stringify({ question }),
+        }
+      );
+
+      const aiAnswer = await response.json();
+
+      alert(aiAnswer.reply);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSetIsSubmittingAI(false);
+    }
+  };
+
   const handleCreateAnswer = async (values: z.infer<typeof AnswerSchema>) => {
     setIsSubmitting(true);
     try {
@@ -53,7 +77,6 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       }
     } catch (error) {
       console.log(error);
-      
     } finally {
       setIsSubmitting(false);
     }
@@ -65,8 +88,11 @@ const Answer = ({ question, questionId, authorId }: Props) => {
           Write your answer here
         </h4>
         <Button
-          onClick={() => {}}
+          onClick={() => {
+            generateAIAnswer();
+          }}
           className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500"
+          disabled
         >
           <Image
             src="/assets/icons/stars.svg"
@@ -74,8 +100,9 @@ const Answer = ({ question, questionId, authorId }: Props) => {
             width={12}
             height={12}
             className="object-contain"
+            
           />
-          Generate an AI Answer
+          Generate AI Answer <span className="text-dark400_light500 font-bold  "> ''Coming Soon'' </span>
         </Button>
       </div>
       <Form {...form}>
