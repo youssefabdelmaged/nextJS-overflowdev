@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/menubar";
 import Image from "next/image";
 import { themes } from "@/constants";
-import { Item } from "@radix-ui/react-menubar";
 
 const Theme = () => {
   const { mode, setMode } = useTheme();
@@ -49,7 +48,7 @@ const Theme = () => {
                   localStorage.removeItem("theme");
                 }
               }}
-              className="flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400  "
+              className="flex items-center gap-4 px-2.5 py-2 dark:focus:bg-dark-400 cursor-pointer  "
             >
               <Image
                 src={theme.icon}

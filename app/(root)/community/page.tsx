@@ -4,8 +4,14 @@ import Pagination from "@/components/shared/Pagination";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+
+
+export const metadata: Metadata = {
+  title: 'Community | Dev Overflow',
+}
 
 interface SearchParamsProps {
   searchParams: { [key: string]: string | undefined };
@@ -17,7 +23,6 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
     page: searchParams.page ? +searchParams.page : 1,
   });
 
-  const isLoading = true;
 
 
   return (
