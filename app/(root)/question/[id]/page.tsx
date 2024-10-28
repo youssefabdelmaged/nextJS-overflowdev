@@ -1,4 +1,4 @@
-"use client"
+
 import Answer from "@/components/forms/Answer";
 import AllAnswers from "@/components/shared/AllAnswers";
 import Metric from "@/components/shared/Metric";
@@ -11,18 +11,15 @@ import { getTimeStamp, formatNumber } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 const QuestionDetails = async ({ searchParams, params }: any) => {
-  const router =useRouter()
   const { userId: clerkId } = auth();
   let mongoUser;
   if (clerkId) {
     mongoUser = await getUserById({ userId: clerkId });
-  }else{
-    router.push('/sign-in')
   }
+
   const result = await getQuestionsById({ questionId: params.id });
 
   return (
